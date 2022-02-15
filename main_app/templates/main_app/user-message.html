@@ -1,0 +1,16 @@
+{% extends 'main_app/base.html' %}
+
+{% block content %}
+    <form action="{% url 'user-message' sender_id receiver_id %}" method="post" class="shadow w-25 p-3 mx-auto mt-4">
+        {% csrf_token %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success">
+                    {{message}}
+                </div>
+            {% endfor %}
+    {% endif %}
+        <input class="form-control bg-transparent mb-3 text-light" type="text" name="sender-message" placeholder="Write your message...">
+        <input type="submit" value="Send" class="btn btn-success">
+    </form>
+{% endblock content %}

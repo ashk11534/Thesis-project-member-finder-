@@ -1,0 +1,33 @@
+{% extends 'main_app/base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row mt-3 text-light">
+            <div class="col-2"></div>
+            <div class="col-8 rounded p-4 bg-dark ">
+                {% if messages %}
+                <div class="d-flex justify-content-end">
+                    <a href="{% url 'delete-all-user-message' request.user.id %}" class="btn btn-danger">Delete All</a>
+                </div>
+                {% endif %}
+                {% if messages %} 
+                    {% for message in messages %}
+                        <div class="border-bottom border-success pt-3 pb-3">
+                            <div class="d-flex align-items-center">
+                                <img src="{{message.sender.image.url}}" alt="host-image" style="width: 50px; height: 50px; border-radius: 50%;">
+                                <p style="margin-bottom: 0; margin-left: 1rem;">@{{message.sender.username}}</p>
+                            </div>
+                            <p class="mt-2">{{message.body}}</p>
+                            <div class="d-flex justify-content-end">
+                                <a href="{% url 'delete-user-message' message.id message.receiver.id %}" class="btn btn-danger">Delete</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <h4>No new messages received.</h4>
+                {% endif %}
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </div>
+{% endblock content %}

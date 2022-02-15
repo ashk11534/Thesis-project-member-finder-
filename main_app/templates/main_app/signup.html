@@ -1,0 +1,11 @@
+{% extends 'main_app/base.html' %}
+
+{% block content %}
+<form action="{% url 'signup' %}" method="post" class="w-25 mx-auto text-light mt-3 shadow p-3 rounded signup-form">
+    {% csrf_token %}
+    {% for field in signup_form %}
+        {{field.label}}{{field}}{{field.errors}}<br>
+    {% endfor %}
+    <input type="submit" value="Register" class="btn btn-success">
+</form>
+{% endblock content %}

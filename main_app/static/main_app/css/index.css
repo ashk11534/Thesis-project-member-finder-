@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100;200;300;400;500;600;700&display=swap');
+
+*{
+    box-sizing: border-box;
+}
+body{
+    background-color: #2f3542;
+    font-family: 'Roboto Mono', monospace;
+}
+.btn-primary{
+    background-color: #ff4757 !important;
+    border-color: #ff4757 !important;
+}
+option{
+    color: #333;
+}
+.my-rooms, .joined-rooms{
+    overflow-y: scroll;
+    height: 600px;
+}
+.room-messages{
+    overflow-y: scroll;
+    height: 400px;
+}
+@media only screen and (max-width: 1280px){
+    .navbar{
+        padding-right: 40px;
+        padding-left: 40px;
+    }
+    .update-profile-form{
+        width: 50% !important;
+    }
+}
+@media only screen and (max-width: 1024px) {
+    .profile-main-content{
+        width: 100% !important;
+    }
+    .side-bar{
+        display: none !important;
+    }
+    .my-rooms, .my-rooms-2{
+        width: 100% !important;
+        display: block !important;
+        margin-bottom: 10px !important;
+    }
+    .joined-rooms{
+        width: 100% !important;
+    }
+    .column-wise{
+        flex-direction: column !important;
+    }
+    .author{
+        display: none;
+    }
+    .signup-form{
+        width: 50% !important;
+    }
+    .update-profile-form{
+        width: 80% !important;
+    }
+    .browse{
+        height: 120px;
+    }
+}
+@media only screen and (max-width: 912px){
+    .login-form, .signup-form{
+        width: 70% !important;
+    }
+    .update-room{
+        width: 80% !important; 
+    }
+}
+@media only screen and (max-width: 540px){
+    .search-form{
+        margin-bottom: 20px !important;
+        margin-top: 10px !important;
+    }
+    .profile-image{
+        margin-bottom: 10px !important;
+    }
+}
+@media only screen and (max-width: 412px){
+    .search-form{
+        margin-bottom: 20px !important;
+        margin-top: 10px !important;
+    }
+    .profile-image{
+        margin-bottom: 10px !important;
+    }
+    .login-logout-menu{
+        margin-bottom: 10px !important;
+    }
+    .navbar{
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+}
+@media only screen and (max-width: 393px){
+    .profile{
+        display: flex;
+        flex-direction: column;
+    }
+}
+@media only screen and (max-width: 280px){
+    .room-body{
+        width: 10rem !important;
+    }
+    .hidden{
+        display: none !important;
+    }
+    .show{
+        display: block !important;
+    }
+    .search-form{
+        margin-bottom: 20px !important;
+        margin-top: 10px !important;
+    }
+    .profile-image{
+        margin-bottom: 10px !important;
+    }
+    .dropdown-item{
+        font-size: 12px !important;
+    }
+    .login-logout-menu{
+        margin-bottom: 10px !important;
+    }
+    .update-profile-form{
+        width: 100% !important;
+    }
+}
+

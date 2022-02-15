@@ -1,0 +1,116 @@
+{% extends 'main_app/base.html' %}
+{% load static %}
+{% block content %}
+   <section class="container">
+    <section class="row text-light mt-3 d-flex justify-content-between column-wise py-3">
+        <div class="col-2 browse bg-dark rounded my-rooms py-2 d-flex flex-column justify-content-between">
+                <div>
+                    <ul>
+                        <li class="list-unstyled"><a href="{% url 'home' %}" class="text-decoration-none text-light">All&nbsp;</a><span class="badge bg-danger">{{all_rooms}}</span></li>
+                        <li class="list-unstyled pt-2"><a href="{% url 'home' %}?topic=Thesis" class="text-decoration-none text-light">Thesis&nbsp;</a><span class="badge bg-danger">{{thesis_count}}</span></li>
+                        <li class="list-unstyled pt-2"><a href="{% url 'home' %}?topic=Project" class="text-decoration-none text-light">Project&nbsp;</a><span class="badge bg-danger">{{project_count}}</span></li>
+                    </ul>
+                </div>
+                <div class="align-self-stretch">
+                    <p class="text-muted author">&copy;Md. Ashikuzzaman</p>
+                </div>
+        </div>
+        <div class="col-6 room-feed my-rooms bg-dark rounded py-3">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <i class="fa-solid fa-user-group">&nbsp;&nbsp;&nbsp;Rooms&nbsp;</i><span class="badge bg-danger">{{room_count}}</span>
+                </div>
+                {% if request.user.is_authenticated %}
+                <div>
+                    <a href="{% url 'create-room' request.user.id 'index' %}" class="text-decoration-none text-light btn btn-success">Create</a>
+                </div>
+                {% endif %}
+            </div>
+            <div class="row d-flex justify-content-center mt-4">
+              {% if rooms %}
+              {% for room in rooms %}
+                <div class="col mb-4" style="flex: 0;">
+                    <div class="card room-body" style="width: 18rem; background-color: #ff4757;">
+                        <div class="card-body d-flex flex-column">
+                        <div class="d-flex align-items-center justify-content-between">
+                          <img src="{{room.host.image.url}}" alt="host-image" style="width: 50px; height: 50px; border-radius: 50%;">
+                          <div>
+                            <i class="fa-solid fa-user-group"></i> {{room.participants.all.count}}
+                          </div>
+                        </div>
+                          <h5 class="card-title">{{room.name}}</h5>
+                          <p>Tag: {{room.tag}}</p>
+                          {% if room.host == request.user %}
+                            <div class="d-flex justify-content-center">
+                              <a href="{% url 'update-room' room.id %}" class="card-link btn btn-success hidden">Update</a>
+                              <a href="{% url 'update-room' room.id %}" class="card-link d-none show text-success"><i class="fa-solid fa-pen"></i></a>
+                              <a href="{% url 'delete-room' room.id room.host.id 'index' %}" class="card-link btn btn-danger hidden text-light">Delete</a>
+                              <a href="{% url 'delete-room' room.id room.host.id 'index' %}" class="card-link d-none show text-light"><i class="fa-solid fa-trash"></i></a>
+                              <a href="{% url 'room' room.id %}" class="card-link btn btn-success hidden">Visit</a>
+                              <a href="{% url 'room' room.id %}" class="card-link d-none show text-light"><i class="fa-solid fa-eye"></i></a>
+                            </div>
+                          {% else %}
+                          <div class="d-flex justify-content-center">
+                            {% if request.user in room.participants.all %}
+                              <a href="" class="card-link btn btn-success hidden"><i class="fa-solid fa-circle-check"></i> Joined</a>
+                              <a href="" class="card-link text-light d-none show"><i class="fa-solid fa-circle-check"></i></a>
+                            {% else %}
+                              {% if request.user.is_authenticated %}
+                                <a href="{% url 'join-room' room.id request.user.id %}" class="card-link btn btn-success">Join</a>
+                              {% else %}
+                                <a href="{% url 'login'%}" class="card-link btn btn-success">Join</a>
+                              {% endif %}
+                            {% endif %}
+                            <a href="{% url 'room' room.id %}" class="card-link btn btn-success hidden">Visit</a>
+                            <a href="{% url 'room' room.id %}" class="card-link d-none show text-light"><i class="fa-solid fa-eye"></i></a>
+                          </div>
+                          {% endif %}
+                        </div>
+                      </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <h5>No rooms available</h5>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-3 suggestions bg-dark rounded py-3 my-rooms">
+            <p>You may know</p>
+            <div class="row">
+              {% for user in users %}
+              {% if not user.id == request.user.id %}
+                <div class="col mb-3">
+                    <div class="card bg-dark" style="border-color: #a4b0be !important;">
+                        <div class="card-body">
+                            <div class="d-flex">
+                                <div>
+                                    <img src="{{user.image.url}}" alt="host-image" style="width: 50px; height: 50px; border-radius: 50%;">
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <h5  style="margin-bottom: 0; margin-left: 1rem;" class="card-title">@{{user.username}}</h5>
+                                </div>
+                            </div>
+                          <p>{{user.university}}</p>
+                          {% if request.user.is_authenticated %}
+                            <div class="d-flex justify-content-evenly">
+                              <a href="{% url 'user-message' request.user.id user.id %}" class="btn btn-primary">Message</a>
+                              <a class="btn btn-success" href="{% url 'user-profile' user.id %}">Profile</a>
+                            </div>
+                           
+                          {% else %}
+                            <div class="d-flex justify-content-evenly">
+                              <a href="{% url 'login' %}" class="btn btn-primary">Message</a>
+                              <a class="btn btn-success" href="{% url 'user-profile' user.id %}">Profile</a>
+                            </div>
+                          {% endif %}
+                        </div>
+                      </div>
+                </div>
+                {% endif %}
+               {% endfor %}
+            </div>
+        </div>
+    </section>
+   </section>
+{% endblock content %}
+    
