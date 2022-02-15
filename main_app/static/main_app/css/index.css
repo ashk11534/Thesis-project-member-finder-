@@ -63,7 +63,7 @@ option{
     }
 }
 @media only screen and (max-width: 912px){
-    .login-form, .signup-form{
+    .login-form, .signup-form, .message-form{
         width: 70% !important;
     }
     .update-room{
