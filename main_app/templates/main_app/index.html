@@ -90,7 +90,11 @@
                                     <h5  style="margin-bottom: 0; margin-left: 1rem;" class="card-title">@{{user.username}}</h5>
                                 </div>
                             </div>
-                          <p>{{user.university}}</p>
+                          {% if user.university == 'Other' %}
+                            <p>Unknown University</p>
+                          {% else %}
+                            <p>{{user.university}}</p>
+                          {% endif %}
                           {% if request.user.is_authenticated %}
                             <div class="d-flex justify-content-evenly">
                               <a href="{% url 'user-message' request.user.id user.id %}" class="btn btn-primary">Message</a>
